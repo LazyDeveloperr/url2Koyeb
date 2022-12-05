@@ -54,7 +54,7 @@
 <details><summary>🧡Deploy To Heroku🧡</summary>
 <p>
 <br>
-<a href="https://heroku.com/deploy?template=https://github.com/LazyDeveloperr/MissPerfect-URL-BOT">
+<a href="https://heroku.com/deploy?template=https://github.com/LazyDeveloperr/url2Koyeb">
   <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy">
 </a>
 </p>
