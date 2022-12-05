@@ -46,7 +46,7 @@
 <details><summary>🔥 Deploy To Koyeb 🔥</summary>
 <p>
 <br>                 
-<a target="/blank" href="https://app.koyeb.com/deploy?type=git&repository=github.com/LazyDeveloperr/url2Koyeb&branch=main&name=testbottttt" >
+<a target="/blank" href="https://app.koyeb.com/deploy?type=git&repository=github.com/LazyDeveloperr/MissPerfect-URL-BOT&branch=main&name=LazyMissPerfectGOT" >
   <img src="https://www.koyeb.com/static/images/deploy/button.svg" alt="Deploy">
 </a>
 </p>
@@ -54,7 +54,7 @@
 <details><summary>🧡Deploy To Heroku🧡</summary>
 <p>
 <br>
-<a href="https://heroku.com/deploy?template=https://github.com/LazyDeveloperr/url2Koyeb">
+<a href="https://heroku.com/deploy?template=https://github.com/LazyDeveloperr/MissPerfect-URL-BOT">
   <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy">
 </a>
 </p>

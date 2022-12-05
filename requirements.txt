@@ -1,13 +1,13 @@
 numpy
 yt-dlp
 Pillow
-aiohttp
 hachoir
 olefile
 requests
 tgcrypto
 aiofiles
 dnspython
-motor[srv]
+motor
 beautifulsoup4
-pyrogram==1.4.16
+pyrogram==2.0.35
+aiohttp

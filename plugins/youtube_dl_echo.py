@@ -230,7 +230,7 @@ async def echo(bot, update):
             "file", "LFO", "NONE")
         cb_string_video = "{}={}={}".format(
             "video", "OFL", "ENON")
-        inline_keyboard.append([
+        inline_keyboard.append([ZZ
             InlineKeyboardButton(
                 "SVideo",
                 callback_data=(cb_string_video).encode("UTF-8")
