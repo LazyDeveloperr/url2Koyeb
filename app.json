@@ -6,7 +6,7 @@
    ],
    "success_url": "https://t.me/LazyMissPerfect_URL_BOT",
    "website": "https://github.com/LazyDeveloperr",
-   "repository": "https://github.com/LazyDeveloperr/MissPerfect-URL-BOT",
+   "repository": "https://github.com/LazyDeveloperr/url2Koyeb",
    "env": {
       "WEBHOOK": {
          "description": "Setting this to ANYTHING will enable webhooks when in env mode",
