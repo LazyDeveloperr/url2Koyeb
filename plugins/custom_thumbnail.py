@@ -14,7 +14,7 @@ import os
 from PIL import Image
 import time
 
-from config import Config
+from config import DOWNLOAD_LOCATION
 # the Strings used for this "thing"
 from translation import Translation
 from pyrogram import Client as Clinton
@@ -52,7 +52,7 @@ async def viewthumbnail(bot, update):
         await update.reply_text(text=f"No Thumbnail found 🤒")
 
 async def Gthumb01(bot, update):
-    thumb_image_path = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id) + ".jpg"
+    thumb_image_path = DOWNLOAD_LOCATION + "/" + str(update.from_user.id) + ".jpg"
     db_thumbnail = await clinton.get_thumbnail(update.from_user.id)
     if db_thumbnail is not None:
         thumbnail = await bot.download_media(message=db_thumbnail, file_name=thumb_image_path)
@@ -66,7 +66,7 @@ async def Gthumb01(bot, update):
     return thumbnail
 
 async def Gthumb02(bot, update, duration, download_directory):
-    thumb_image_path = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id) + ".jpg"
+    thumb_image_path = DOWNLOAD_LOCATION + "/" + str(update.from_user.id) + ".jpg"
     db_thumbnail = await clinton.get_thumbnail(update.from_user.id)
     if db_thumbnail is not None:
         thumbnail = await bot.download_media(message=db_thumbnail, file_name=thumb_image_path)

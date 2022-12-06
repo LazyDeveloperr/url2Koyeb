@@ -16,7 +16,7 @@ import shutil
 import time
 from datetime import datetime
 # the secret configuration specific things
-from config import Config
+from config import DOWNLOAD_LOCATION,TG_MAX_FILE_SIZE,PROCESS_MAX_TIMEOUT,CHUNK_SIZE
 # the Strings used for this "thing"
 from translation import Translation
 from plugins.custom_thumbnail import *
@@ -33,7 +33,7 @@ async def ddl_call_back(bot, update):
     cb_data = update.data
     # youtube_dl extractors
     tg_send_type, youtube_dl_format, youtube_dl_ext = cb_data.split("=")
-    thumb_image_path = Config.DOWNLOAD_LOCATION + \
+    thumb_image_path = DOWNLOAD_LOCATION + \
         "/" + str(update.from_user.id) + ".jpg"
     youtube_dl_url = update.message.reply_to_message.text
     custom_file_name = os.path.basename(youtube_dl_url)
@@ -74,7 +74,7 @@ async def ddl_call_back(bot, update):
         chat_id=update.message.chat.id,
         message_id=update.message.message_id
     )
-    tmp_directory_for_each_user = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id)
+    tmp_directory_for_each_user = DOWNLOAD_LOCATION + "/" + str(update.from_user.id)
     if not os.path.isdir(tmp_directory_for_each_user):
         os.makedirs(tmp_directory_for_each_user)
     download_directory = tmp_directory_for_each_user + "/" + custom_file_name
@@ -105,14 +105,14 @@ async def ddl_call_back(bot, update):
             chat_id=update.message.chat.id,
             message_id=update.message.message_id
         )
-        file_size = Config.TG_MAX_FILE_SIZE + 1
+        file_size = TG_MAX_FILE_SIZE + 1
         try:
             file_size = os.stat(download_directory).st_size
         except FileNotFoundError as exc:
             download_directory = os.path.splitext(download_directory)[0] + "." + "mkv"
             # https://stackoverflow.com/a/678242/4723940
             file_size = os.stat(download_directory).st_size
-        if file_size > Config.TG_MAX_FILE_SIZE:
+        if file_size > TG_MAX_FILE_SIZE:
             await bot.edit_message_text(
                 chat_id=update.message.chat.id,
                 text=Translation.RCHD_TG_API_LIMIT,
@@ -219,7 +219,7 @@ async def ddl_call_back(bot, update):
 async def download_coroutine(bot, session, url, file_name, chat_id, message_id, start):
     downloaded = 0
     display_message = ""
-    async with session.get(url, timeout=Config.PROCESS_MAX_TIMEOUT) as response:
+    async with session.get(url, timeout=PROCESS_MAX_TIMEOUT) as response:
         total_length = int(response.headers["Content-Length"])
         content_type = response.headers["Content-Type"]
         if "text" in content_type and total_length < 500:
@@ -233,11 +233,11 @@ File Size: {}""".format(url, humanbytes(total_length))
         )
         with open(file_name, "wb") as f_handle:
             while True:
-                chunk = await response.content.read(Config.CHUNK_SIZE)
+                chunk = await response.content.read(CHUNK_SIZE)
                 if not chunk:
                     break
                 f_handle.write(chunk)
-                downloaded += Config.CHUNK_SIZE
+                downloaded += CHUNK_SIZE
                 now = time.time()
                 diff = now - start
                 if round(diff % 5.00) == 0 or downloaded == total_length:

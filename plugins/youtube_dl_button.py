@@ -13,7 +13,7 @@ import time
 import shutil
 import asyncio
 from PIL import Image
-from config import Config
+from config import DOWNLOAD_LOCATION, TG_MAX_FILE_SIZE, HTTP_PROXY
 from datetime import datetime
 from database.access import clinton
 from translation import Translation
@@ -25,7 +25,7 @@ from helper_funcs.display_progress import progress_for_pyrogram, humanbytes
 async def youtube_dl_call_back(bot, update):
     cb_data = update.data
     tg_send_type, youtube_dl_format, youtube_dl_ext = cb_data.split("|")
-    save_ytdl_json_path = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id) + ".json"
+    save_ytdl_json_path = DOWNLOAD_LOCATION + "/" + str(update.from_user.id) + ".json"
     try:
         with open(save_ytdl_json_path, "r", encoding="utf8") as f:
             response_json = json.load(f)
@@ -78,7 +78,7 @@ async def youtube_dl_call_back(bot, update):
     if "fulltitle" in response_json:
         description = response_json["fulltitle"][0:1021]
         # escape Markdown and special characters
-    tmp_directory_for_each_user = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id)
+    tmp_directory_for_each_user = DOWNLOAD_LOCATION + "/" + str(update.from_user.id)
     if not os.path.isdir(tmp_directory_for_each_user):
         os.makedirs(tmp_directory_for_each_user)
     if '/' in custom_file_name:
@@ -91,7 +91,7 @@ async def youtube_dl_call_back(bot, update):
     command_to_exec = []
     if tg_send_type == "audio":
         command_to_exec = ["yt-dlp", "-c",
-             "--max-filesize", str(Config.TG_MAX_FILE_SIZE),
+             "--max-filesize", str(TG_MAX_FILE_SIZE),
              "--prefer-ffmpeg", "--extract-audio",
              "--audio-format", youtube_dl_ext,
              "--audio-quality", youtube_dl_format,
@@ -101,14 +101,14 @@ async def youtube_dl_call_back(bot, update):
         if "youtu" in youtube_dl_url:
             minus_f_format = youtube_dl_format + "+bestaudio"
         command_to_exec = ["yt-dlp", "-c",
-            "--max-filesize", str(Config.TG_MAX_FILE_SIZE),
+            "--max-filesize", str(TG_MAX_FILE_SIZE),
             "--embed-subs", "-f", minus_f_format,
             "--hls-prefer-ffmpeg", youtube_dl_url,
             "-o", download_directory]
 
-    if Config.HTTP_PROXY != "":
+    if HTTP_PROXY != "":
         command_to_exec.append("--proxy")
-        command_to_exec.append(Config.HTTP_PROXY)
+        command_to_exec.append(HTTP_PROXY)
     if youtube_dl_username is not None:
         command_to_exec.append("--username")
         command_to_exec.append(youtube_dl_username)
@@ -146,7 +146,7 @@ async def youtube_dl_call_back(bot, update):
                 await update.message.edit(text="File Not found 🤒")
                 asyncio.create_task(clendir(tmp_directory_for_each_user))
                 return
-        if file_size > Config.TG_MAX_FILE_SIZE:
+        if file_size > TG_MAX_FILE_SIZE:
             await bot.edit_message_text(
             chat_id=update.message.chat.id,
             text=Translation.RCHD_TG_API_LIMIT.format(time_taken_for_download, humanbytes(file_size)),
