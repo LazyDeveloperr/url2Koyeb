@@ -26,15 +26,11 @@ class Bot(Client):
 
     async def start(self):
        await super().start()
-       me = await self.get_me()
-       self.mention = me.mention
-       self.username = me.username 
-
        app = web.AppRunner(await web_server())
        await app.setup()
        bind_address = "0.0.0.0"
        await web.TCPSite(app, bind_address, PORT).start()
-       logging.info(f"{me.first_name} ✅✅ BOT started successfully ✅✅")
+       logging.info(f"✅✅ BOT started successfully ✅✅")
       
 
     async def stop(self, *args):
