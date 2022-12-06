@@ -1,5 +1,5 @@
 
-from config import Config
+from config import DATABASE_URL,SESSION_NAME
 from database.database import Database
 
-clinton = Database(Config.DATABASE_URL, Config.SESSION_NAME)
+clinton = Database(DATABASE_URL,SESSION_NAME)
