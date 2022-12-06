@@ -1,41 +1,23 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+import os
 import logging
-import logging.config
-from pyrogram import Client 
-from config import API_ID, API_HASH, BOT_TOKEN, PORT,SESSION_NAME
-from aiohttp import web
-from plugins import web_server
+from config import Config
+from pyrogram import Client as LazyDeveloper
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logging.getLogger("pyrogram").setLevel(logging.WARNING)
+logger = logging.getLogger(__name__)
 
-logging.config.fileConfig('logging.conf')
-logging.getLogger().setLevel(logging.INFO)
-logging.getLogger("pyrogram").setLevel(logging.ERROR)
 
-PORT= "8080"
-
-class Bot(Client):
-
-    def __init__(self):
-        super().__init__(
-            name=SESSION_NAME,
-            api_id=API_ID,
-            api_hash=API_HASH,
-            bot_token=BOT_TOKEN,
-            workers=50,
-            plugins={"root": "plugins"},
-            sleep_threshold=5,
-        )
-
-    async def start(self):
-       await super().start()
-       app = web.AppRunner(await web_server())
-       await app.setup()
-       bind_address = "0.0.0.0"
-       await web.TCPSite(app, bind_address, PORT).start()
-       logging.info(f"✅✅ BOT started successfully ✅✅")
-      
-
-    async def stop(self, *args):
-      await super().stop()      
-      logging.info("Bot Stopped 🙄")
-        
-app = Bot()
-app.run()
+if __name__ == "__main__" :
+    # create download directory, if not exist
+    if not os.path.isdir(Config.DOWNLOAD_LOCATION):
+        os.makedirs(Config.DOWNLOAD_LOCATION)
+    plugins = dict(root="plugins")
+    Warrior = LazyDeveloper("@LazyDeveloper",
+    bot_token=Config.BOT_TOKEN,
+    api_id=Config.API_ID,
+    api_hash=Config.API_HASH,
+    plugins=plugins)
+    Warrior.run()

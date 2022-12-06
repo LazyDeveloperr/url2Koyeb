@@ -1,3 +1,4 @@
+https://github.com/Mahesh0253/pyrogram/archive/inline.zip
 numpy
 yt-dlp
 Pillow
@@ -7,7 +8,9 @@ requests
 tgcrypto
 aiofiles
 dnspython
-motor
+motor[srv]
 beautifulsoup4
-pyrogram==2.0.35
-aiohttp
+Flask==2.2.2
+gunicorn==20.1.0
+aiohttp==3.8.1
+pymongo[srv]==3.12.3
