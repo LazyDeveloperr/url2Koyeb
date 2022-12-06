@@ -1,7 +1,7 @@
 import logging
 import logging.config
 from pyrogram import Client 
-from config import API_ID, API_HASH, BOT_TOKEN, PORT
+from config import API_ID, API_HASH, BOT_TOKEN, PORT,SESSION_NAME
 from aiohttp import web
 from plugins import web_server
 
@@ -15,6 +15,7 @@ class Bot(Client):
 
     def __init__(self):
         super().__init__(
+            name=SESSION_NAME,
             api_id=API_ID,
             api_hash=API_HASH,
             bot_token=BOT_TOKEN,
