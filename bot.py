@@ -3,7 +3,7 @@ import logging.config
 from pyrogram import Client 
 from config import API_ID, API_HASH, BOT_TOKEN, PORT
 from aiohttp import web
-from plugins.web_support import web_server
+from plugins import web_server
 
 logging.config.fileConfig('logging.conf')
 logging.getLogger().setLevel(logging.INFO)
@@ -41,5 +41,5 @@ class Bot(Client):
       await super().stop()      
       logging.info("Bot Stopped 🙄")
         
-bot = Bot()
-bot.run()
+app = Bot()
+app.run()
