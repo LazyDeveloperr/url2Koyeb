@@ -1,7 +1,7 @@
 import logging
 import logging.config
 from pyrogram import Client 
-from config import API_ID, API_HASH, BOT_TOKEN, FORCE_SUB, PORT
+from config import API_ID, API_HASH, BOT_TOKEN, PORT
 from aiohttp import web
 from plugins.web_support import web_server
 
